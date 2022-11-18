@@ -1,6 +1,6 @@
 .elements__item {
   max-width: 282px;
-  max-height: 282px;
+  min-height: 282px;
   border-radius: 10px;
   transform: matrix(-1, 0, 0, 1, 0, 0);
 }

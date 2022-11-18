@@ -10,6 +10,7 @@
   padding: 0;
   margin-top: 30px;
   transition: 0.3s ease;
+  cursor: pointer;
 }
 
 .elements__button:hover {
