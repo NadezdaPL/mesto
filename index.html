@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="body">
+  <div class="page">
+    <header class="header page__header">
+      <img src="./images/Mesto.png" class="header__logo" alt="Логотип Место Россия">
+    </header>
+    <main class="content page__content">
+      <section class="profile content__profile">
+        <img src="./images/Жак-Ив Кусто.jpg" class="profile__avatar" alt="Фото Аватара">
+        <div class="profile__info">
+          <div class="profile__container">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button type="button" class="profile__edit-button"></button>
+          </div>
+          <p class="profile__text">Исследователь океана</p>
+        </div>
+        <button type="button" class="profile__add-button"></button>
+      </section>
+      <section class="elements content__elements">
+        <div class="elements__container">
+          <img class="elements__item" src="./images/Карачаевск.jpg" alt="Карачаевск">
+          <div class="elements__context">
+            <h2 class="elements__title">Карачаевск</h2>
+            <button type="button" class="elements__button"></button>
+          </div>
+        </div>
+        <div class="elements__container">
+          <img class="elements__item" src="./images/Гора Эльбрус.jpg" alt="Гора Эльбрус">
+          <div class="elements__context">
+            <h2 class="elements__title">Гора Эльбрус</h2>
+            <button type="button" class="elements__button"></button>
+          </div>
+        </div>
+        <div class="elements__container">
+          <img class="elements__item" src="./images/Домбай.jpg" alt="Домбай">
+          <div class="elements__context">
+            <h2 class="elements__title">Домбай</h2>
+            <button type="button" class="elements__button"></button>
+          </div>
+        </div>
+        <div class="elements__container">
+          <img class="elements__item" src="./images/Гора Эльбрус.jpg" alt="Гора Эльбрус">
+          <div class="elements__context">
+            <h2 class="elements__title">Гора Эльбрус</h2>
+            <button type="button" class="elements__button"></button>
+          </div>
+        </div>
+        <div class="elements__container">
+          <img class="elements__item" src="./images/Домбай.jpg" alt="Домбай">
+          <div class="elements__context">
+            <h2 class="elements__title">Домбай</h2>
+            <button type="button" class="elements__button"></button>
+          </div>
+        </div>
+        <div class="elements__container">
+          <img class="elements__item" src="./images/Карачаевск.jpg" alt="Карачаево-Ч...">
+          <div class="elements__context">
+            <h2 class="elements__title">Карачаево-Черкессия</h2>
+            <button type="button" class="elements__button"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer page__footer">
+      <p class="footer__copyright">&#169; 2022 Nadezda</p>
+    </footer>
+    <section class="popup">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__content">
+          <input class="popup__text popup__text_content_name" name="name" required placeholder="Жак-Ив Кусто" type="text">
+          <input class="popup__text popup__text_content_job" name="job" required placeholder="Исследователь океана" type="text">
+          <button type="submit" class="popup__submit">Сохранить</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</body>
+<script src="./scripts/index.js"></script>
+</html>
