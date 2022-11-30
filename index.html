@@ -24,48 +24,6 @@
         <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements content__elements">
-        <div class="elements__container">
-          <img src="./images/Карачаевск.jpg" class="elements__item" alt="Карачаевск">
-          <div class="elements__context">
-            <h2 class="elements__title">Карачаевск</h2>
-            <button type="button" class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__container">
-          <img src="./images/Гора-Эльбрус.jpg" class="elements__item" alt="Гора Эльбрус">
-          <div class="elements__context">
-            <h2 class="elements__title">Гора Эльбрус</h2>
-            <button type="button" class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__container">
-          <img src="./images/Домбай.jpg" class="elements__item" alt="Домбай">
-          <div class="elements__context">
-            <h2 class="elements__title">Домбай</h2>
-            <button type="button" class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__container">
-          <img src="./images/Гора-Эльбрус.jpg" class="elements__item" alt="Гора Эльбрус">
-          <div class="elements__context">
-            <h2 class="elements__title">Гора Эльбрус</h2>
-            <button type="button" class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__container">
-          <img src="./images/Домбай.jpg" class="elements__item" alt="Домбай">
-          <div class="elements__context">
-            <h2 class="elements__title">Домбай</h2>
-            <button type="button" class="elements__button"></button>
-          </div>
-        </div>
-        <div class="elements__container">
-          <img src="./images/Карачаевск.jpg" class="elements__item" alt="Карачаево-Ч...">
-          <div class="elements__context">
-            <h2 class="elements__title">Карачаево-Черкессия</h2>
-            <button type="button" class="elements__button"></button>
-          </div>
-        </div>
       </section>
     </main>
     <footer class="footer page__footer">
@@ -77,12 +35,42 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__content">
           <input class="popup__text popup__text_content_name" name="popup__text_content_name" type="text">
-          <input class="popup__text popup__text_content_job" name="popup__text_content_name" type="text">
+          <input class="popup__text popup__text_content_job" name="popup__text_content_job" type="text">
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
       </div>
     </section>
+    <section class="popup" id="popup__add">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__content" id="popup__content-add">
+          <input class="popup__text popup__text_content_nickname" name="popup__text_content_nickname" type="nickname" 
+            placeholder="Название" required>
+          <input class="popup__text popup__text_content_link" name="popup__text_content_link" type="url" 
+            placeholder="Ссылка на картинку" required>
+          <button type="submit" class="popup__submit">Создать</button>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup__image">
+      <div class="popup__image-container">
+        <button class="popup__close"></button>
+        <img class="popup__image-item">
+        <h2 class="popup__image-title"></h2>
+      </div>
+    </section>
   </div>
+  <template id="elements__cards">
+    <div class="elements__container">
+      <img class="elements__item">
+      <div class="elements__context">
+        <h2 class="elements__title"></h2>
+        <button type="button" class="elements__button-like"></button>
+        <button type="button" class="elements__button-delete"></button>
+      </div>
+    </div>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

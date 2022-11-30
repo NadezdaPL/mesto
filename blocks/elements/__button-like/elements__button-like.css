@@ -1,4 +1,4 @@
-.elements__button {
+.elements__button-like {
   min-width: 22px;
   max-height: 19px;
   background-image: url(../../../images/heart.png);
@@ -13,10 +13,6 @@
   cursor: pointer;
 }
 
-.elements__button:hover {
+.elements__button-like:hover {
   opacity: 0.5;
-}
-
-.elements__button:active {
-  background-image: url(../../../images/heart-active.png);
 }
