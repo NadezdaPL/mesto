@@ -17,7 +17,7 @@ const cardsTemplate = document.querySelector('#elements__cards').content.querySe
 const form = document.querySelector('#popup__content-add');
 const formNicknameInput = document.querySelector('[name="popup__text_content_nickname"]');
 const formLinkInput = document.querySelector('[name="popup__text_content_link"]');
-const popupImageElement = document.querySelector('.popup__image');
+const popupImageElement = document.querySelector('.popup_image');
 const popupImageCloseButton = popupImageElement.querySelector('.popup__close');
 const popupImageItem = popupImageElement.querySelector('.popup__image-item');
 const popupImageTitle = popupImageElement.querySelector('.popup__image-title');
