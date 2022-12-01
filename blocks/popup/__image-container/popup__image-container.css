@@ -1,12 +1,6 @@
 .popup__image-container {
-  margin: 90px auto;
   position: relative;
-  display: grid;
+  display: flex;
   justify-content: center;
-}
-
-@media screen and (max-width: 568px) {
-  .popup__image-container {
-    margin: auto 40px;
-  }
+  flex-direction: column;
 }
