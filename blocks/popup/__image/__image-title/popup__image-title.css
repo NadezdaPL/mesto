@@ -7,3 +7,9 @@
   margin: 0;
   margin-top: 10px;
 }
+
+@media screen and (max-width: 568px) {
+  .popup__image-title {
+    max-width: 240px;
+  }
+}
