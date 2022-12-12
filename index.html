@@ -33,10 +33,14 @@
       <div class="popup__container">
         <button class="popup__close"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__content" id="popup__content-edit">
-          <input class="popup__text popup__text_content_name" name="popup__text_content_name" type="text">
-          <input class="popup__text popup__text_content_job" name="popup__text_content_job" type="text">
-          <button type="submit" class="popup__submit">Сохранить</button>
+        <form class="popup__form" id="popup__form-edit" name="edit" novalidate>
+          <input class="popup__input popup__input_type_name" name="name" type="text" 
+            minlength="2" maxlength="40" required id="name">
+          <span id="name-error" class="popup__error_visible"></span>
+          <input class="popup__input popup__input_type_job" name="job" type="text" 
+            minlength="2" maxlength="200" required id="job">
+          <span id="job-error" class="popup__error_visible"></span>
+          <button type="submit" class="popup__button">Сохранить</button>
         </form>
       </div>
     </section>
@@ -44,12 +48,14 @@
       <div class="popup__container">
         <button class="popup__close"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__content" id="popup__content-add">
-          <input class="popup__text popup__text_content_nickname" name="popup__text_content_nickname" type="nickname" 
-            placeholder="Название" required>
-          <input class="popup__text popup__text_content_link" name="popup__text_content_link" type="url" 
-            placeholder="Ссылка на картинку" required>
-          <button type="submit" class="popup__submit">Создать</button>
+        <form class="popup__form" id="popup__form-add" name="add" novalidate>
+          <input class="popup__input popup__input_type_nickname" name="nickname" type="text" 
+            placeholder="Название" required minlength="2" maxlength="30" id="nickname">
+          <span id="nickname-error" class="popup__error_visible"></span>
+          <input class="popup__input popup__input_type_link" name="link" type="url" 
+            placeholder="Ссылка на картинку" required id="link">
+          <span id="link-error" class="popup__error_visible"></span>
+          <button type="submit" class="popup__button popup__button_disabled">Создать</button>
         </form>
       </div>
     </section>
@@ -72,5 +78,6 @@
     </div>
   </template>
   <script src="./scripts/index.js" type="module"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

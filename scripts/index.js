@@ -1,22 +1,25 @@
 import initialCards from './cards.js'
 
+const formEdit = document.forms.edit;
+const formAdd = document.forms.add;
+const nameElement = formEdit.elements.name;
+const jobElement = formEdit.elements.job;
+const nicknameElement = formAdd.elements.nickname;
+const linkElement = formAdd.elements.link;
+
 const profileElement = document.querySelector('.profile');
 const profileEditButtonElement = profileElement.querySelector('.profile__edit-button');
 const profileAddButtonElement = profileElement.querySelector('.profile__add-button');
 const profileTitle = profileElement.querySelector('.profile__title');
 const profileText = profileElement.querySelector('.profile__text');
+const popup = document.querySelector('.popup')
 const popupEdit = document.querySelector('#popup__edit');
 const popupCloseEditButtonElement = popupEdit.querySelector('.popup__close');
-const formContentEdit = popupEdit.querySelector('#popup__content-edit');
-const nameInput = formContentEdit.querySelector('.popup__text_content_name');
-const jobInput = formContentEdit.querySelector('.popup__text_content_job');
 const cardsContainer = document.querySelector('.elements');
 const cardsTemplate = document.querySelector('#elements__cards').content.querySelector('.elements__container');
 const popupAdd = document.querySelector('#popup__add');
 const popupCloseAddButtonElement = popupAdd.querySelector('.popup__close');
-const formContentAdd = popupAdd.querySelector('#popup__content-add');
-const formNicknameInput = formContentAdd.querySelector('[name="popup__text_content_nickname"]');
-const formLinkInput = formContentAdd.querySelector('[name="popup__text_content_link"]');
+const popupSaveButton = popupAdd.querySelector('.popup__button');
 const popupImageElement = document.querySelector('.popup_image');
 const popupImageCloseButton = popupImageElement.querySelector('.popup__close');
 const popupImageItem = popupImageElement.querySelector('.popup__image-item');
@@ -27,19 +30,20 @@ const openPopup = function (popup) {
 };
 
 profileEditButtonElement.addEventListener('click', function () {
-  nameInput.value = profileTitle.textContent; 
-  jobInput.value = profileText.textContent;
+  nameElement.value = profileTitle.textContent; 
+  jobElement.value = profileText.textContent;
   openPopup(popupEdit);
 });
 
 profileAddButtonElement.addEventListener('click', function () {
   openPopup(popupAdd);
+  popupSaveButton.disabled = 'disabled';
 });
 
 function formEditSubmitHandler (evt) { 
   evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileText.textContent = jobInput.value;
+  profileTitle.textContent = nameElement.value;
+  profileText.textContent = jobElement.value;
   closePopup(popupEdit);
 };
 
@@ -86,8 +90,8 @@ initialCards.forEach(function(item) {
 const formAddSubmitHandler = (e) => {
   e.preventDefault ()
   const image = {
-    title: formNicknameInput.value,
-    link: formLinkInput.value
+    title: nicknameElement.value,
+    link: linkElement.value
   }
   renderCard(image, cardsContainer);
   closePopup(popupAdd);
@@ -97,10 +101,34 @@ const closePopup = function (popup) {
   popup.classList.remove('popup_opened')
 };
 
+popup.addEventListener('click', (e) => {
+  if(!e.target.closest('.popup__container')) {
+    closePopup(e.target.closest('.popup'))
+  }
+});
+
+const handleKeyUp = (e) => {
+  if(e.key === 'Escape') {
+    const openPopup = document.querySelector('.popup_opened')
+    closePopupByButton(openPopup)
+  }
+};
+
+const closePopupByButton = (popup) => {
+  popup.classList.remove('popup_opened')
+  document.removeEventListener('keyup', handleKeyUp)
+};
+
+const openModal = (popup) => {
+  popup.classList.add('popup_opened')
+  document.addEventListener('keyup', handleKeyUp)
+};
+
+document.addEventListener('keyup', handleKeyUp);
 profileEditButtonElement.addEventListener('click', openPopup);
 profileAddButtonElement.addEventListener('click', openPopup);
 popupCloseEditButtonElement.addEventListener('click', () => closePopup(popupEdit));
 popupCloseAddButtonElement.addEventListener('click', () => closePopup(popupAdd));
 popupImageCloseButton.addEventListener('click', () => closePopup(popupImageElement));
-formContentAdd.addEventListener('submit', formAddSubmitHandler);
-formContentEdit.addEventListener('submit', formEditSubmitHandler);
+formAdd.addEventListener('submit', formAddSubmitHandler);
+formEdit.addEventListener('submit', formEditSubmitHandler);
