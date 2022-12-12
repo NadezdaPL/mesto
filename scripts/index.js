@@ -6,7 +6,6 @@ const nameElement = formEdit.elements.name;
 const jobElement = formEdit.elements.job;
 const nicknameElement = formAdd.elements.nickname;
 const linkElement = formAdd.elements.link;
-
 const profileElement = document.querySelector('.profile');
 const profileEditButtonElement = profileElement.querySelector('.profile__edit-button');
 const profileAddButtonElement = profileElement.querySelector('.profile__add-button');
@@ -26,7 +25,9 @@ const popupImageItem = popupImageElement.querySelector('.popup__image-item');
 const popupImageTitle = popupImageElement.querySelector('.popup__image-title');
 
 const openPopup = function (popup) { 
-  popup.classList.add('popup_opened')
+  popup.classList.add('popup_opened');
+  document.addEventListener('keyup', handleKeyUp);
+  popup.addEventListener('click', closePopupOverlay);
 };
 
 profileEditButtonElement.addEventListener('click', function () {
@@ -97,10 +98,6 @@ const formAddSubmitHandler = (e) => {
   closePopup(popupAdd);
 };
 
-const closePopup = function (popup) { 
-  popup.classList.remove('popup_opened')
-};
-
 popup.addEventListener('click', (e) => {
   if(!e.target.closest('.popup__container')) {
     closePopup(e.target.closest('.popup'))
@@ -109,22 +106,24 @@ popup.addEventListener('click', (e) => {
 
 const handleKeyUp = (e) => {
   if(e.key === 'Escape') {
-    const openPopup = document.querySelector('.popup_opened')
-    closePopupByButton(openPopup)
+    const openPopups = document.querySelector('.popup_opened')
+    closePopup(openPopups)
   }
 };
 
-const closePopupByButton = (popup) => {
+const closePopupOverlay = (e) => {
+  if (e.target === e.currentTarget) {
+    const popupOpen = document.querySelector('.popup_opened');
+    closePopup(popupOpen);
+  }
+};
+
+const closePopup = function (popup) { 
   popup.classList.remove('popup_opened')
-  document.removeEventListener('keyup', handleKeyUp)
+  document.removeEventListener('keyup', handleKeyUp);
+  popup.removeEventListener('click', closePopupOverlay);
 };
 
-const openModal = (popup) => {
-  popup.classList.add('popup_opened')
-  document.addEventListener('keyup', handleKeyUp)
-};
-
-document.addEventListener('keyup', handleKeyUp);
 profileEditButtonElement.addEventListener('click', openPopup);
 profileAddButtonElement.addEventListener('click', openPopup);
 popupCloseEditButtonElement.addEventListener('click', () => closePopup(popupEdit));
