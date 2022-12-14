@@ -1,3 +1,12 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+}
+
 const enableValidation = (validationConfig) => {
   const forms = [...document.querySelectorAll(validationConfig.formSelector)];
 
@@ -12,7 +21,7 @@ const enableValidation = (validationConfig) => {
     inputs.forEach(input => {
       input.addEventListener('input', () => {
         checkInputValidity(input, validationConfig);
-        toggleSubmitButton(inputs, button, validationConfig)
+        toggleSubmitButton(inputs, button, validationConfig);
       })
     })
   })
@@ -42,12 +51,9 @@ const toggleSubmitButton = (inputs, button, validationConfig) => {
     }
 };
 
+function disableSubmitButton (button) {
+  button.classList.add(validationConfig.inactiveButtonClass);
+  button.disabled = true;
+}
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-});
+enableValidation(validationConfig);
