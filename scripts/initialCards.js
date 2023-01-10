@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
     title: 'Россия',
     link: 'https://images.unsplash.com/photo-1669016585654-55d81d7cb8b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80'
@@ -24,5 +24,3 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1669111959488-fb9508809efc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
   }
 ];
-
-export default initialCards;
