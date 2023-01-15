@@ -9,7 +9,6 @@ import { validationConfig } from './validationConfig.js'
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
 
-
 const editFormValidation = new FormValidator(validationConfig, formEditProfile);
 editFormValidation.enableValidation();
 
@@ -31,6 +30,7 @@ profileEditButtonElement.addEventListener('click', function () {
 profileAddButtonElement.addEventListener('click', function () {
   openPopup(popupAddCard);
   formAddCard.reset();
+  addFormValidation.toggleSubmitButton(popupSaveButton)
 });
 
 function formEditSubmitHandler (evt) { 
@@ -41,8 +41,8 @@ function formEditSubmitHandler (evt) {
 };
 
 const createElement = (item) => {
-  const card = new Card (item, '#elements__cards', handleCardClick)
-  const cardElement = card.generateCard()
+  const card = new Card (item, '#elements__cards', handleCardClick);
+  const cardElement = card.generateCard();
   
   return cardElement
 };
@@ -69,6 +69,7 @@ const formAddSubmitHandler = (e) => {
     title: nicknameElement.value,
     link: linkElement.value
   }
+
   renderCard(image, cardsContainer);
   closePopup(popupAddCard);
 };
@@ -82,8 +83,7 @@ const handleKeyUp = (e) => {
 
 const closePopupOverlay = (e) => {
   if (e.target === e.currentTarget) {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
+    closePopup(e.currentTarget);
   }
 };
 

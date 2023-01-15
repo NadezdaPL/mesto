@@ -1,4 +1,5 @@
 .elements__container {
+  width: 100%;
   max-width: 282px;
   min-height: 361px;
   background-color: #fff;

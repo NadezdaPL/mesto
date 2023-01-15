@@ -12,7 +12,7 @@ export class FormValidator {
   }
 
   _checkInputValidity = (input) => {
-    if(!input.validity.valid) {
+    if(!input.checkValidity()) {
       this._showError(input, input.validationMessage)
     } else {
       this._hideError(input)
@@ -39,22 +39,23 @@ export class FormValidator {
     })
   }
 
-  _toggleSubmitButton = () => {
-    if(this._isInputValid()) {
-      this._button.classList.add(this._inactiveButtonClass);
-      this._button.setAttribute('disabled', true)
+  toggleSubmitButton = (buttonElement) => {
+    if(this._form.checkValidity()) {
+      buttonElement.disabled = false
+      buttonElement.classList.remove(this._inactiveButtonClass);
     } else {
-      this._button.classList.remove(this._inactiveButtonClass);
-      this._button.removeAttribute('disabled')
+      buttonElement.classList.add(this._inactiveButtonClass);
+      buttonElement.disabled = true
     }
   }
 
   _setEventListener() {
-    this._toggleSubmitButton()
+    const buttonElement = this._form.querySelector(this._submitButtonSelector);
+    this.toggleSubmitButton(buttonElement)
     this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
-        this._toggleSubmitButton();
+        this.toggleSubmitButton(buttonElement);
       })
     })
   }

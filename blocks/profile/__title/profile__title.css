@@ -1,6 +1,5 @@
 .profile__title {
   margin: 0;
-  min-width: 294px;
   font-weight: 500;
   font-size: 42px;
   line-height: 1.14;
@@ -12,7 +11,7 @@
 
 @media screen and (max-width: 984px) {
   .profile__title {
-    min-width: 270px;
+    max-width: 270px;
     font-size: 38px;
     line-height: 40px;
   }
@@ -20,7 +19,7 @@
       
 @media screen and (max-width: 774px) {
   .profile__title {
-    min-width: 230px;
+    max-width: 230px;
     font-size: 27px;
     line-height: 35px;
     text-align: center;
@@ -29,7 +28,7 @@
 
 @media screen and (max-width: 320px) {
   .profile__title {
-    min-width: 189px;
+    max-width: 189px;
     line-height: 32.68px;
   }
 }

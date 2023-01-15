@@ -4,6 +4,12 @@ export class Card {
     this._link = initialCards.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._element = this._getTemplate();
+    this._cardTitle = this._element.querySelector('.elements__title');
+    this._cardLink = this._element.querySelector('.elements__item');
+    this._cardLinkAlt = this._element.querySelector('.elements__item');
+    this._cardLikeButton = this._element.querySelector('.elements__button-like');
+    this._cardDeleteButton = this._element.querySelector('.elements__button-delete');
   }
 
   _getTemplate() {
@@ -12,47 +18,39 @@ export class Card {
     .content
     .querySelector('.elements__container')
     .cloneNode(true);
-    
+
     return cardElement;
   }
 
   generateCard() {
-    this._element = this._getTemplate();
-    const cardTitle = this._element.querySelector('.elements__title');
-    const cardLink = this._element.querySelector('.elements__item');
-    const cardLinkAlt = this._element.querySelector('.elements__item');
-    const cardLikeButton = this._element.querySelector('.elements__button-like');
-    const cardDeleteButton = this._element.querySelector('.elements__button-delete');
-    
-    cardTitle.textContent = this._title;
-    cardLink.src = this._link;
-    cardLinkAlt.alt = this._title;
+    this._cardTitle.textContent = this._title;
+    this._cardLink.src = this._link;
+    this._cardLinkAlt.alt = this._title;
+    this._setEventListeners();
 
-    this._setEventListeners(cardLink, cardLikeButton, cardDeleteButton);
-  
     return this._element;
   }
 
-  _setEventListeners(cardLink, cardLikeButton, cardDeleteButton) {
-    cardLink.addEventListener('click', () => {
+  _setEventListeners() {
+    this._cardLink.addEventListener('click', () => {
       this._handleCardClick(this._title, this._link);
     });
 
-    cardLikeButton.addEventListener('click', () => {
-      this._handleLikeButton(cardLikeButton);
+    this._cardLikeButton.addEventListener('click', () => {
+      this._handleLikeButton();
     });
 
-    cardDeleteButton.addEventListener('click', () => {
+    this._cardDeleteButton.addEventListener('click', () => {
       this._handleDeleteButton();
     })
+  } 
+
+  _handleLikeButton () {
+    this._cardLikeButton.classList.toggle('elements__button-like_active')
   }
 
-  _handleLikeButton (cardLikeButton) {
-    cardLikeButton.classList.toggle('elements__button-like_active')
-  }
-  
   _handleDeleteButton () {
     this._element.remove()
+    this._element = null
   }
-
-}
+} 
