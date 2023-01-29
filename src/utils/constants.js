@@ -12,6 +12,7 @@ export const profileText = profileElement.querySelector('.profile__text');
 export const popupEditProfile = document.querySelector('#popup__edit');
 export const popupCloseEditButtonElement = popupEditProfile.querySelector('.popup__close');
 export const cardsContainer = document.querySelector('.elements');
+export const templateSelector = document.querySelector('#elements__cards')
 export const cardsTemplate = document.querySelector('#elements__cards').content.querySelector('.elements__container');
 export const popupAddCard = document.querySelector('#popup__add');
 export const popupCloseAddButtonElement = popupAddCard.querySelector('.popup__close');
