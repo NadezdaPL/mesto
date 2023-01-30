@@ -66,23 +66,23 @@ const cardList = new Section(
 
 cardList.renderCards();
 
-const formAddSubmitHandler = (e, item) => {
+const handleAddFormSubmit = (e, item) => {
   e.preventDefault();
   const newCard = createElement(item)
   cardList.addItem(newCard);
 };
 
-const formEditSubmitHandler = (e, values) => {
+const handleProfileFormSubmit = (e, values) => {
   e.preventDefault();
   userInfo.setUserInfo(values.name, values.job);
 };
 
-const addCardPopupForm = new PopupWithForm("#popup__add", formAddSubmitHandler);
+const addCardPopupForm = new PopupWithForm("#popup__add", handleAddFormSubmit);
 addCardPopupForm.setEventListeners();
 
 const editCardPopupForm = new PopupWithForm(
   "#popup__edit",
-  formEditSubmitHandler
+  handleProfileFormSubmit
 );
 editCardPopupForm.setEventListeners();
 
