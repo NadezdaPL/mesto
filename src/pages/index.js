@@ -1,30 +1,16 @@
-import './index.css';
+import "./index.css";
 import {
   formEditProfile,
   formAddCard,
+  formAvatarCard,
   nameElement,
   jobElement,
-  //nicknameElement,
-  //linkElement,
-  //profileElement,
   profileEditButtonElement,
   profileAddButtonElement,
-  //profileTitle,
-  //profileText,
-  //popupEditProfile,
-  //popupCloseEditButtonElement,
   cardsContainer,
-  //cardsTemplate,
-  //popupAddCard,
-  //popupCloseAddButtonElement,
-  //popupImageElement,
-  //popupImageCloseButton,
-  //popupImageItem,
-  //popupImageTitle,
   popupSaveButton,
-  //templateSelector,
+  profileAvatarButtonElement,
 } from "../utils/constants.js";
-import { initialCards } from "../utils/initialCards.js";
 import { validationConfig } from "../utils/validationConfig.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
@@ -32,6 +18,58 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-59",
+  headers: {
+    authorization: "7b9e1f3e-ea14-4843-8c77-09b44113828b",
+    "Content-Type": "application/json",
+  },
+});
+
+const userInfo = new UserInfo({
+  nameSelector: ".profile__title",
+  infoSelector: ".profile__text",
+  avatarSelector: ".profile__avatar",
+});
+
+const renderInitialCards = (cards) => {
+  const cardList = new Section(
+    {
+      renderer: (item) => {
+        const newCard = createElement(item);
+        const cardElement = newCard.generateCard();
+        cardList.addItem(cardElement);
+      },
+    },
+    cardsContainer
+  );
+  cardList.renderCards(cards);
+};
+
+Promise.all([api.getInfo(), api.getInitialCards()])
+  .then(([data, initialCards]) => {
+    userInfo.setUserInfo(data);
+    renderInitialCards(initialCards);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+  
+
+const cardDeleteHandler = async (card) => {
+  console.log(card)
+  const id = card.getCardId();
+  try {
+    await api.deleteCard(id);
+    popupWithConfirmation.close();
+    card.deleteCard();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const editFormValidation = new FormValidator(validationConfig, formEditProfile);
 editFormValidation.enableValidation();
@@ -39,63 +77,99 @@ editFormValidation.enableValidation();
 const addFormValidation = new FormValidator(validationConfig, formAddCard);
 addFormValidation.enableValidation();
 
+const avatarFormValidation = new FormValidator(validationConfig, formAvatarCard);
+avatarFormValidation.enableValidation();
+
+
 const popupWithImage = new PopupWithImage(".popup_image");
 popupWithImage.setEventListeners();
 
-const handleCardClick = (title, link) => {
-  popupWithImage.open(title, link);
-};
+
+const popupWithConfirmation = new PopupWithConfirmation(
+  ".popup_confirm",
+  (card) => cardDeleteHandler(card)
+);
+popupWithConfirmation.setEventListeners();
+
 
 const createElement = (item) => {
-  const card = new Card(item, "#elements__cards", handleCardClick);
-  const cardElement = card.generateCard();
-
-  return cardElement;
+  const card = new Card(item, userInfo.getUserId(), "#elements__cards", {
+    handleCardClick: (title, link) => {
+      popupWithImage.open(title, link);
+    },
+    handleLikeClick: () => {
+      const id = card.getCardId();
+      const isLiked = card.defineLikes();
+      console.log(isLiked);
+      const resultApi = isLiked ? api.removeLike(id) : api.addLike(id);
+      resultApi
+        .then((initialCards) => {
+          card.setLikes(initialCards);
+          card.renderLikes();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    handleDeleteClick: () => {
+      popupWithConfirmation.open(card);
+    },
+  });
+  return card;
 };
 
-const cardList = new Section(
+
+const addCardPopupForm = new PopupWithForm(
   {
-    items: initialCards,
-    renderer: (item) => {
-      const newCard = createElement(item)
-      cardList.addItem(newCard);
+    handleFormSubmit: async (card) => {
+      try {
+        const data = await api.createCard(card)
+        const newCard = createElement(data)
+        const cardElement = newCard.generateCard();
+        cardsContainer.prepend(cardElement)
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
-  cardsContainer
-);
-
-cardList.renderCards();
-
-const handleAddFormSubmit = (e, item) => {
-  e.preventDefault();
-  const newCard = createElement(item)
-  cardList.addItem(newCard);
-};
-
-const handleProfileFormSubmit = (e, values) => {
-  e.preventDefault();
-  userInfo.setUserInfo(values.name, values.job);
-};
-
-const addCardPopupForm = new PopupWithForm("#popup__add", handleAddFormSubmit);
+  "#popup__add");
 addCardPopupForm.setEventListeners();
 
-const editCardPopupForm = new PopupWithForm(
-  "#popup__edit",
-  handleProfileFormSubmit
-);
+const editCardPopupForm = new PopupWithForm({
+    handleFormSubmit: async (data) => {
+      try {
+        const newData = await api.addInfo(data)
+        userInfo.setUserInfo(newData);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  "#popup__edit");
+
 editCardPopupForm.setEventListeners();
 
-const userInfo = new UserInfo({
-  userTitleSelector: ".profile__title",
-  userTextSelector: ".profile__text",
-});
+const avatarCardPopupForm = new PopupWithForm(
+  {
+    handleFormSubmit: async (avatar) => {
+      try {
+        const data =  await api.addAvatar(avatar)
+        userInfo.setUserInfo(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  "#popup__avatar");
+
+avatarCardPopupForm.setEventListeners();
 
 profileEditButtonElement.addEventListener("click", () => {
   editCardPopupForm.open();
-  const { title, text } = userInfo.getUserInfo();
-  nameElement.value = title;
-  jobElement.value = text;
+  const { name, info } = userInfo.getUserInfo();
+  nameElement.value = name;
+  jobElement.value = info;
+  editFormValidation.resetValidation();
 });
 
 profileAddButtonElement.addEventListener("click", () => {
@@ -103,4 +177,9 @@ profileAddButtonElement.addEventListener("click", () => {
   formAddCard.reset();
   addFormValidation.toggleSubmitButton(popupSaveButton);
   addFormValidation.resetValidation();
+});
+
+profileAvatarButtonElement.addEventListener("click", () => {
+  avatarCardPopupForm.open();
+  avatarFormValidation.resetValidation();
 });

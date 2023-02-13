@@ -12,7 +12,10 @@
     </header>
     <main class="content page__content">
       <section class="profile content__profile">
-        <img src="<%=require('./images/Жак-Ив-Кусто.jpg')%>" class="profile__avatar" alt="Фото Аватара">
+        <button type="button" class="profile__edit-avatar">
+          <img src="<%=require('./images/Жак-Ив-Кусто.jpg')%>" class="profile__avatar" alt="Фото Аватара">
+          <img src="<%=require('./images/edit-button.png')%>" class="profile__avatar-edit" alt="Редактировать Аватар">
+        </button>
         <div class="profile__info">
           <div class="profile__container">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -73,13 +76,39 @@
         <h2 class="popup__image-title"></h2>
       </div>
     </section>
+    <section class="popup popup_avatar" id="popup__avatar">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" id="popup__form-avatar" name="avatar" novalidate>
+          <fieldset class="popup__fieldset">
+            <input class="popup__input popup__input_type_avatar" name="avatar" type="url" 
+              placeholder="Ссылка на картинку" required minlength="2" id="avatar">
+            <span id="avatar-error" class="popup__error popup__error_visible"></span>
+          </fieldset>
+          <button type="submit" class="popup__button popup__button_disabled">Сохранить</button>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup_confirm">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="popup__form" id="popup__form-confirm" name="confirm" novalidate>
+          <button type="submit" class="popup__button">Да</button>
+        </form>
+      </div>
+    </section>
   </div>
   <template id="elements__cards">
     <div class="elements__container">
       <img class="elements__item" alt="">
       <div class="elements__context">
         <h2 class="elements__title"></h2>
-        <button type="button" class="elements__button-like"></button>
+        <div class="element__like">
+          <button type="button" class="elements__button-like"></button>
+          <span class="element__number"></span>
+        </div>
         <button type="button" class="elements__button-delete"></button>
       </div>
     </div>
