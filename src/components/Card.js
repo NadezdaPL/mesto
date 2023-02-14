@@ -73,7 +73,7 @@ export class Card {
   setLikes(initialCards) {
     this._likes = initialCards.likes;
     this._cardLikeNumber.textContent = this._likes.length;
-    this._cardLikeButton.classList.toggle("elements__button-like_active");
+    this._handleLikeButton();
   }
 
   _handleLikeButton() {

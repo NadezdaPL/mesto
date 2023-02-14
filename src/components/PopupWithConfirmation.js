@@ -14,19 +14,16 @@ export class PopupWithConfirmation extends Popup {
     super.open();
   }
 
-  _setLoading(loading, loadingText = "Удаление...") {
-    if (loading) {
-      this._button.textContent = loadingText;
-    } else {
-      this._button.textContent = this._buttonText;
-    }
-  }
-
   setEventListeners() {
     this._form.addEventListener("submit", (e) => {
       e.preventDefault();
-      this._cardDeleteHandler(this._card);
-      this._setLoading(true);
+      const initialText = this._button.textContent;
+      this._button.textContent = 'Удаление...';
+      this._cardDeleteHandler(this._card)
+        .then(() => this.close())
+        .finally(() => {
+          this._button.textContent = initialText;
+        })
     });
     super.setEventListeners();
   }

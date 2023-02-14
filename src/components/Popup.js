@@ -15,13 +15,19 @@ export class Popup {
     document.addEventListener('keyup', this._handleEscClose);
   }
 
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   close() {
     this._popupElement.classList.remove('popup_opened');
     document.removeEventListener('keyup', this._handleEscClose);
  }
 
   setEventListeners() {
-    this._popupElement.addEventListener('click', (e) => {
+    this._popupElement.addEventListener('mousedown', (e) => {
       if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close')) {
         this.close()
       }
