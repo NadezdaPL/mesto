@@ -4,31 +4,7 @@
   height: 120px;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
-  border: none;
   margin: 0 auto;
   padding: 0;
   cursor: pointer;
-}
-
-.profile__edit-avatar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99;
-  opacity: 0;
-  border-radius: 50%;
-  background-color: #000;
-  transition: 0.3s ease;
-}
-
-.profile__edit-avatar:hover::before {
-  opacity: 0.8;
-}
-
-.profile__edit-avatar:hover .profile__avatar-edit {
-  opacity: 1;
-  transition: 0.3s ease;
 }

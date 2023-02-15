@@ -31,17 +31,18 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__avatar",
 });
 
-const renderInitialCards = (cards) => {
-  const cardList = new Section(
-    {
-      renderer: (item) => {
-        const newCard = createElement(item);
-        const cardElement = newCard.generateCard();
-        cardList.addItem(cardElement);
-      },
+const cardList = new Section(
+  {
+    renderer: (item) => {
+      const newCard = createElement(item);
+      const cardElement = newCard.generateCard();
+      cardList.addItem(cardElement);
     },
-    cardsContainer
-  );
+  },
+  cardsContainer
+);
+
+const renderInitialCards = (cards) => {
   cardList.renderCards(cards);
 };
 
@@ -76,7 +77,6 @@ const popupWithConfirmation = new PopupWithConfirmation(
 );
 popupWithConfirmation.setEventListeners();
 
-
 const createElement = (item) => {
   const card = new Card(item, userInfo.getUserId(), "#elements__cards", {
     handleCardClick: (title, link) => {
@@ -110,8 +110,7 @@ const addCardPopupForm = new PopupWithForm(
         const data = await api.createCard(card)
         const newCard = createElement(data)
         const cardElement = newCard.generateCard();
-        cardsContainer.prepend(cardElement);
-        //addCardPopupForm.close();
+        cardList.prependItem(cardElement);
       } catch (error) {
         console.log(error);
       }
@@ -125,7 +124,6 @@ const editCardPopupForm = new PopupWithForm({
       try {
         const newData = await api.addInfo(data)
         userInfo.setUserInfo(newData);
-        //editCardPopupForm.close();
       } catch (error) {
         console.log(error);
       }
@@ -141,7 +139,6 @@ const avatarCardPopupForm = new PopupWithForm(
       try {
         const data =  await api.addAvatar(avatar)
         userInfo.setUserInfo(data);
-        //avatarCardPopupForm.close();
       } catch (error) {
         console.log(error);
       }
@@ -158,7 +155,6 @@ const enableValidation = (config) => {
   formList.forEach((formElement) => {
     const validator = new FormValidator(validationConfig, formElement)
     const formName = formElement.getAttribute('name')
-
     formValidators[formName] = validator;
     validator.enableValidation();
   });

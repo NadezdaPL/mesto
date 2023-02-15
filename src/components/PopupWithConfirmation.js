@@ -21,6 +21,9 @@ export class PopupWithConfirmation extends Popup {
       this._button.textContent = 'Удаление...';
       this._cardDeleteHandler(this._card)
         .then(() => this.close())
+        .catch((error) => {
+          console.log(error)
+        })
         .finally(() => {
           this._button.textContent = initialText;
         })

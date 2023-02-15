@@ -30,6 +30,9 @@ export class PopupWithForm extends Popup {
       this._button.textContent = 'Сохранение...';
       this._handleFormSubmit(this._getInputValues())
         .then(() => this.close())
+        .catch((error) => {
+          console.log(error)
+        })
         .finally(() => {
           this._button.textContent = initialText;
         })
