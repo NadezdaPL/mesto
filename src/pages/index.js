@@ -34,8 +34,7 @@ const userInfo = new UserInfo({
 const cardList = new Section(
   {
     renderer: (item) => {
-      const newCard = createElement(item);
-      const cardElement = newCard.generateCard();
+      const cardElement = createElement(item);
       cardList.addItem(cardElement);
     },
   },
@@ -100,16 +99,15 @@ const createElement = (item) => {
       popupWithConfirmation.open(card);
     },
   });
-  return card;
+  return card.generateCard();
 };
 
 const addCardPopupForm = new PopupWithForm(
   {
     handleFormSubmit: async (card) => {
       try {
-        const data = await api.createCard(card)
-        const newCard = createElement(data)
-        const cardElement = newCard.generateCard();
+        const data = await api.createCard(card);
+        const cardElement = createElement(data);
         cardList.prependItem(cardElement);
       } catch (error) {
         console.log(error);
